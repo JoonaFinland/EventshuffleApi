@@ -10,3 +10,4 @@ class AppSettings(BaseSettings):
     DATABASE_URL: str
     ENVIRONMENT: str = "dev"
     ALLOWED_CORS_ORIGINS: set[AnyUrl]
+    BASE_URL: str = ""
