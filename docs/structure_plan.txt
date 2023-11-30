@@ -1,0 +1,38 @@
+fastapi_project/
+├── alembic/
+│   ├── env.py
+│   ├── README
+│   ├── script.py.mako
+│   └── versions/
+│       └── # Alembic migration scripts will be generated here
+│
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── endpoints/
+│   │   │   ├── __init__.py
+│   │   │   └── example.py
+│   │   └── models/
+│   │       ├── __init__.py
+│   │       └── example.py
+│   │
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   └── ...
+│   │
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   └── test_example.py
+│   │
+│   └── schemas/
+│       ├── __init__.py
+│       └── example.py
+│
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+└── .env
