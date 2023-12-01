@@ -4,6 +4,7 @@ uvicorn
 sqlalchemy
 databases
 psycopg2-binary
+asyncpg
 alembic
 pydantic
 pydantic-settings

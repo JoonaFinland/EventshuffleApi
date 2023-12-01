@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from .core.config import AppSettings
-from app.api.event import router as event_router
+from app.api.event.router import router as event_router
 settings = AppSettings()
 
 app = FastAPI(

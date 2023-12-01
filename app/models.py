@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Date, ForeignKey
+from sqlalchemy import Column, String, Integer, Date, ForeignKey, ARRAY
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -9,7 +9,7 @@ class Event(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     event_name = Column(String, index=True)
-    possible_dates = Column(String)
+    possible_dates = Column(ARRAY(String))
 
     votes = relationship("Vote", back_populates="event")
 
@@ -18,7 +18,7 @@ class Vote(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     voter_name = Column(String)
-    date = Column(Date)
+    date = Column(ARRAY(String))
     event_id = Column(Integer, ForeignKey("events.id"))
 
     event = relationship("Event", back_populates="votes")

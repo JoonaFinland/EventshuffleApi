@@ -1,4 +1,4 @@
-from pydantic import AnyUrl
+from pydantic import AnyUrl, PostgresDsn
 from pydantic_settings import BaseSettings
 
 class AppSettings(BaseSettings):
@@ -7,7 +7,7 @@ class AppSettings(BaseSettings):
         env_file_encoding = "utf-8"
         env_prefix = "app_"
 
-    DATABASE_URL: str
+    DATABASE_URL: PostgresDsn
     ENVIRONMENT: str = "dev"
     ALLOWED_CORS_ORIGINS: set[AnyUrl]
     BASE_URL: str = ""
