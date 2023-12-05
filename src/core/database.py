@@ -8,8 +8,12 @@ from typing import Optional
 
 settings = AppSettings() # type: ignore
 
-engine = create_async_engine(str(settings.DATABASE_URL))
-
+if settings.ENVIRONMENT == 'TESTING':
+    engine = create_async_engine(str(settings.TEST_DATABASE_URL))
+    print('make TEST db')
+else:
+    engine = create_async_engine(str(settings.DATABASE_URL))
+    print('make PROD db')
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 async def fetch_one(select_query: ClauseElement) -> Optional[dict[str, Any]]:

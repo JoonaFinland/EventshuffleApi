@@ -9,8 +9,12 @@ alembic
 pydantic
 pydantic-settings
 pytest
+pytest-asyncio
+Pyro4
 fastapi[all]
 httpx
+async_asgi_testclient
+aiosqlite
 
 # Development and Documentation
 black

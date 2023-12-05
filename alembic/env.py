@@ -1,11 +1,10 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-from app import models
-from app.core.config import AppSettings
+from src import models
+from src.core.config import AppSettings
 config = context.config
 
 settings = AppSettings()
@@ -13,7 +12,10 @@ settings = AppSettings()
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-DATABASE_URL = str(settings.DATABASE_URL)
+if settings.ENVIRONMENT == "TESTING":
+    DATABASE_URL = str(settings.TEST_DATABASE_URL)
+else:
+    DATABASE_URL = str(settings.DATABASE_URL)
 db_driver = settings.DATABASE_URL.scheme
 db_driver_parts = db_driver.split("+")
 if len(db_driver_parts) > 1:  # e.g. postgresql+asyncpg
@@ -22,6 +24,7 @@ if len(db_driver_parts) > 1:  # e.g. postgresql+asyncpg
         db_driver, sync_scheme
     )
 
+print('DATABASE_URL', DATABASE_URL)
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 target_metadata = models.Base.metadata

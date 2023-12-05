@@ -8,6 +8,7 @@ class AppSettings(BaseSettings):
         env_prefix = "app_"
 
     DATABASE_URL: PostgresDsn
+    TEST_DATABASE_URL: PostgresDsn
     ENVIRONMENT: str = "dev"
     ALLOWED_CORS_ORIGINS: set[AnyUrl]
     BASE_URL: str = ""

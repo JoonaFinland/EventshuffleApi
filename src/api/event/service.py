@@ -1,6 +1,6 @@
 from sqlalchemy import insert, select, delete
-from app.models import Event, Vote
-from app.core.database import execute, fetch_one, fetch_all
+from src.models import Event, Vote
+from src.core.database import execute, fetch_one, fetch_all
 
 async def create_event(event_name: str, event_dates: list[str]):
     insert_query = (
