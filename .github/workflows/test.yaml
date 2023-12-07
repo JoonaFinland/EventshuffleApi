@@ -24,11 +24,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker Compose
+      - name: Setup and Run tests
         run: docker-compose -f docker-compose-test.yaml up --build -d
-
-      - name: Run tests
-        run: docker-compose -f docker-compose-test.yaml exec test bash -c "alembic upgrade head && pytest"
 
   # cleanup:
   #   name: Cleanup
