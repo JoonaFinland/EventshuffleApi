@@ -24,7 +24,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - psql:/var/lib/postgresql/data
+      - psql-dev:/var/lib/postgresql/data
 
   pgadmin:
     container_name: pgadmin
@@ -37,31 +37,5 @@ services:
     depends_on:
       - db
 
-  test-db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: dbname
-    ports:
-      - "5434:5432"
-    volumes:
-      - psql:/var/lib/postgresql/data
-
-  test:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    volumes:
-      - .:/src
-    working_dir: /src
-    environment:
-      - app_ENVIRONMENT=TESTING
-    depends_on:
-      - test-db
-    command: ["bash", "-c", "alembic upgrade head && pytest"]
-
 volumes:
-  psql: null
+  psql-dev: null

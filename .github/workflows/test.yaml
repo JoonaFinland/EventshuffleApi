@@ -1,0 +1,42 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: dbname
+        ports:
+          - "5434:5432"
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    env:
+      app_DATABASE_URL: postgres://user:password@localhost:5434/dbname
+      app_TEST_DATABASE_URL: postgresql+asyncpg://user:password@test-db:5432/postgres
+      app_ENVIRONMENT: TESTING
+      app_BASE_URL: /api/v1
+      SQLALCHEMY_SILENCE_UBER_WARNING: 1
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        run: docker-compose -f docker-compose-test.yaml up --build -d
+
+      - name: Run tests
+        run: docker-compose -f docker-compose-test.yaml exec test bash -c "alembic upgrade head && pytest"
+
+  # cleanup:
+  #   name: Cleanup
+  #   run: docker-compose -f docker-compose-test.yaml down --remove-orphans
