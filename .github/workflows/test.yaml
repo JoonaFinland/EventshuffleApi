@@ -16,6 +16,10 @@ jobs:
       - name: Setup and Run tests
         run: docker-compose -f docker-compose-test.yaml up --build --exit-code-from test
 
-  # cleanup:
-  #   name: Cleanup
-  #   run: docker-compose -f docker-compose-test.yaml down --remove-orphans
+  
+  cleanup:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup
+        run: docker-compose -f docker-compose-test.yaml down --remove-orphans
