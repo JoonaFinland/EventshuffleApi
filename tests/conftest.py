@@ -1,6 +1,6 @@
 from typing import Any, Generator, AsyncGenerator
 import sys
-#sys.path.insert(0, '/src')
+sys.path.insert(0, '/src')
 import pytest_asyncio
 import pytest
 from async_asgi_testclient import TestClient

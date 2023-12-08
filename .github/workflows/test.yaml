@@ -41,6 +41,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Debug - Show Current Directory
+        run: |
+          echo "Current working directory: $PWD"
 
+      - name: Debug - Show sys.path
+        run: |
+          python -c "import sys; print('sys.path:', sys.path)"
+      
       - name: Setup and Run tests
-        run: alembic upgrade head && pytest -s
+        run: |
+          cd ${{ github.workspace }}
+          alembic upgrade head && pytest -s
