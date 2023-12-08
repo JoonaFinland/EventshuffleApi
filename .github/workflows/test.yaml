@@ -27,6 +27,7 @@ jobs:
       app_ALLOWED_CORS_ORIGINS: '["http://localhost:3000"]'
       app_BASE_URL: /api/v1
       SQLALCHEMY_SILENCE_UBER_WARNING: 1
+      PYTHONPATH: ${{ github.workspace }}/src
     
     steps:
       - name: Checkout code
