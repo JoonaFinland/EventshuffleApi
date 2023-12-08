@@ -4,35 +4,38 @@ fastapi_project/
 │   ├── README
 │   ├── script.py.mako
 │   └── versions/
-│       └── # Alembic migration scripts will be generated here
-│
-├── app/
+│       └── # Alembic migrations
+|
+├── .github/
+│   └── workflows/
+│       └── test.yaml
+|
+├── src/
 │   ├── __init__.py
 │   ├── main.py
+│   ├── models.py
 │   ├── api/
 │   │   ├── __init__.py
-│   │   ├── endpoints/
-│   │   │   ├── __init__.py
-│   │   │   └── example.py
-│   │   └── models/
+│   │   └── event/
 │   │       ├── __init__.py
-│   │       └── example.py
+│   │       └── router.py
+│   │       └── schema.py
+│   │       └── service.py
+│   │       └── utils.py
 │   │
 │   ├── core/
 │   │   ├── __init__.py
 │   │   ├── config.py
-│   │   ├── database.py
-│   │   └── ...
+│   │   └── database.py
 │   │
-│   ├── tests/
-│   │   ├── __init__.py
-│   │   └── test_example.py
-│   │
-│   └── schemas/
+│   └── tests/
 │       ├── __init__.py
-│       └── example.py
+│       └── conftest.py
+│       └── test_app.py
+│    
 │
-├── docker-compose.yml
+├── docker-compose.yaml
+├── docker-compose-test.yaml
 ├── Dockerfile
 ├── requirements.txt
 └── .env
