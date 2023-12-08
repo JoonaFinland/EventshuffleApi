@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: dbname
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - psql-test:/var/lib/postgresql/data
 
@@ -18,7 +18,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/src
-    working_dir: /src
     environment:
       - app_DATABASE_URL=postgresql+asyncpg://user:password@test-db:5432/postgres
       - app_TEST_DATABASE_URL=postgresql+asyncpg://user:password@test-db:5432/postgres
