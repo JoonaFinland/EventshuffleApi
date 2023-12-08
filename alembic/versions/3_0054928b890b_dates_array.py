@@ -31,9 +31,9 @@ def upgrade() -> None:
     # Rename the new column to the original name
     op.alter_column('votes', 'date_new', new_column_name='date')
 
-
 def downgrade() -> None:
     # In case of a downgrade, reverse the process
     op.add_column('votes', sa.Column('date_new', sa.DATE()))
-    op.execute('UPDATE votes SET date = date_new')
-    op.drop_column('votes', 'date_new')
+    op.execute('UPDATE votes SET date_new = date')
+    op.drop_column('votes', 'date')
+    op.alter_column('votes', 'date_new', new_column_name='date')

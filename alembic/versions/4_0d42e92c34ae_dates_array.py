@@ -25,4 +25,5 @@ def upgrade():
     op.alter_column('events', 'possible_dates', existing_type=sa.String(), type_=sa.ARRAY(sa.String()))
 
 def downgrade():
-    op.alter_column('events', 'possible_dates', existing_type=sa.ARRAY(sa.String()), type_=sa.String(), using='possible_dates::varchar')
+    op.alter_column('events', 'possible_dates', existing_type=sa.ARRAY(sa.String()), type_=sa.String(), using='possible_dates::varchar[]')
+

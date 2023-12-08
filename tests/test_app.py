@@ -26,20 +26,70 @@ import pytest
 from async_asgi_testclient import TestClient
 from fastapi import status
 
-
 @pytest.mark.asyncio
 async def test_index(client: TestClient) -> None:
-    # resp = await client.post(
-    #     "/auth/users",
-    #     json={
-    #         "email": "email@fake.com",
-    #         "password": "123Aa!",
-    #     },
-    # )
     response = await client.get('/api/v1')
     assert response.status_code == 200
 
+#### LIST EVENTS ####
 @pytest.mark.asyncio
 async def test_get_events(client: TestClient) -> None:
     response = await client.get('/api/v1/event/list')
+    print(response.text)
     assert response.status_code == 200
+
+#### CREATE EVENTS ####
+@pytest.mark.asyncio
+async def test_create_event_validation_error(client: TestClient) -> None:
+    invalid_event_data = {"name": "", "date": "invalid-date"}
+    response = await client.post('/api/v1/event/', json=invalid_event_data)
+    assert response.status_code == 422
+
+@pytest.mark.asyncio
+async def test_create_event(client: TestClient) -> None:
+    event_data = {"name": "New Event", "date": "2023-12-31"}
+    response = await client.post('/api/v1/event/', json=event_data)
+    assert response.status_code == 200
+
+#### GET EVENT ####
+@pytest.mark.asyncio
+async def test_get_event_by_id(client: TestClient) -> None:
+    event_id = 1
+    response = await client.get(f'/api/v1/event/{event_id}')
+    assert response.status_code == 200
+
+@pytest.mark.asyncio
+async def test_get_event_by_id_not_found(client: TestClient) -> None:
+    nonexistent_event_id = 3
+    response = await client.get(f'/api/v1/event/{nonexistent_event_id}')
+    assert response.status_code == 404
+
+#### VOTE TESTS ####
+@pytest.mark.asyncio
+async def test_create_vote(client: TestClient) -> None:
+    event_id = 1
+    vote_data = {"voter": "John Doe", "choice": "2023-12-31"}
+    response = await client.post(f'/api/v1/event/{event_id}/vote', json=vote_data)
+    assert response.status_code == 200
+
+@pytest.mark.asyncio
+async def test_create_vote_id_not_found(client: TestClient) -> None:
+    event_id = 90
+    vote_data = {"voter": "John Doe", "choice": "2023-12-31"}
+    response = await client.post(f'/api/v1/event/{event_id}/vote', json=vote_data)
+    assert response.status_code == 404
+
+@pytest.mark.asyncio
+async def test_create_vote_id_bad_date(client: TestClient) -> None:
+    event_id = 1
+    vote_data = {"voter": "John Doe", "choice": "invalid-date"}
+    response = await client.post(f'/api/v1/event/{event_id}/vote', json=vote_data)
+    assert response.status_code == 200
+
+#### EVENT RESULTS ####
+@pytest.mark.asyncio
+async def test_get_event_results(client: TestClient) -> None:
+    event_id = 1
+    response = await client.get(f'/api/v1/event/{event_id}/results')
+    assert response.status_code == 200
+

@@ -38,4 +38,5 @@ services:
       - db
 
 volumes:
-  psql-dev: null
+  psql-dev:
+    external: true

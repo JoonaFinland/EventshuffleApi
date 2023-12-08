@@ -27,7 +27,7 @@ services:
       - SQLALCHEMY_SILENCE_UBER_WARNING=1
     depends_on:
       - test-db
-    command: ["bash", "-c", "alembic upgrade head && pytest"]
+    command: ["bash", "-c", "alembic upgrade head && pytest -s"]
 
 volumes:
   psql-test: null
