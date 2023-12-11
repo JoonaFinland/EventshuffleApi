@@ -17,16 +17,17 @@ EventShuffle is an application designed to simplify event scheduling with friend
 
 Follow these steps to set up and run EventShuffle locally.
 
-### 1. First-Time Setup
+### 1. Copy sample.env to .env 
 
+### 2. First-Time Setup
 ```bash
 docker volume create --name=psql-dev
 ```
-### 2. Start the Backend
+### 3. Start the Backend
 ```bash
 docker-compose -f docker-compose.yaml up --build
 ```
-### 3. Run Tests
+### 4. Run Tests
 ```bash
 docker-compose -f docker-compose-test.yaml up --build --exit-code-from test
 ```
