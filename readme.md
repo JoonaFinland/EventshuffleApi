@@ -35,11 +35,13 @@ docker-compose -f docker-compose-test.yaml up --build --exit-code-from test
 ## Usage
 Once the backend is up and running, interact with the API to create and query events.
 
+Docs: http://localhost:8000/docs
+
 Example API Requests
 ### Create an Event:
 
 ```http
-POST http://localhost:8000/events
+POST http://localhost:8000/api/v1/event
 Content-Type: application/json
 
 {
@@ -50,17 +52,29 @@ Content-Type: application/json
 ### Query Events:
 
 ```http
-GET http://localhost:8000/events
+GET http://localhost:8000/api/v1/event/list
+```
+
+### Query Single Event by Id:
+
+```http
+GET http://localhost:8000/api/v1/event/1
 ```
 
 ### Submit Dates as a Participant:
 
 ```http
-POST http://localhost:8000/events/1/participants
+POST http://localhost:8000/api/v1/event/1/vote
 Content-Type: application/json
 
 {
   "name": "John Doe",
   "dates": ["2023-12-15"]
 }
+```
+
+### Get Suitable Dates:
+
+```http
+GET http://localhost:8000/api/v1/event/1/results
 ```
