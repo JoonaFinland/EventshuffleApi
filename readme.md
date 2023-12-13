@@ -2,6 +2,11 @@
 
 EventShuffle is an application designed to simplify event scheduling with friends, providing a user-friendly alternative to tools like http://doodle.com. With VentShuffle, users can effortlessly create events, query available dates, and allow participants to submit their suitable dates.
 
+## To do
+- Update pytest tests to be independent ( use multiple clients with preloaded data )
+- Update tests to use Data classes to check the json content of responses
+- Prefer to use if guards instead of nested ifs
+
 ## Features
 
 - **Event Creation**: Easily create events by posting a name and suitable dates to the backend.
